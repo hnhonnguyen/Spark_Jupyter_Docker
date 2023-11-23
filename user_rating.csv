@@ -1,0 +1,5 @@
+﻿case_id,user_id,comment,case_created_at,case_rating,case_category_1,case_category_2
+1,56,Nước ngon lắm,2020-01-03 20:34:00,5,Product,Drink
+2,67,Máy lạnh nóng quá,2020-04-03 20:34:00,1,Facility,Air Conditioner
+3,78,Bạn thu ngân rất dễ thương,2020-05-03 20:34:00,3,Service,Cashier
+4,78,Hôm nay bánh mì mình ăn bị chua,2020-02-03 08:34:00,2,Product,Food

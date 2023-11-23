@@ -1,0 +1,121 @@
+Table bronze.USER_RATING {
+case_id string
+user_id int
+comment string
+case_created_at timestamp
+case_rating int
+case_category_1 string
+case_category_2 string
+}
+
+Table silver.CALENDAR_DIM {
+  DATE datetime
+}
+
+TABLE silver.CASE_CATEGORY_DIM {
+  CASE_CATEGORY_ID string
+  CASE_CATEGORY_1_NAME string
+  CASE_CATEGORY_2_NAME string
+  CREATED_AT timestamp
+  LAST_UPDATED_AT timestamp
+  LAST_EXECUTED_AT timestamp
+}
+
+TABLE silver.USER_DIM {
+  USER_ID int
+  CREATED_AT timestamp
+  LAST_UPDATED_AT timestamp
+  LAST_EXECUTED_AT timestamp
+}
+
+TABLE silver.USER_RATING_FACT {
+  CASE_ID string
+  USER_ID int
+  COMMNET string
+  CASE_RATING int
+  CASE_CATEGORY_ID string
+  CREATED_AT timestamp
+  LAST_EXECUTED_AT timestamp
+}
+
+
+Table gold.CALENDAR_DIM {
+  DATE datetime
+}
+
+TABLE gold.CASE_CATEGORY_DIM {
+  CASE_CATEGORY_ID string
+  CASE_CATEGORY_1_NAME string
+  CASE_CATEGORY_2_NAME string
+  CREATED_AT timestamp
+  LAST_UPDATED_AT timestamp
+  LAST_EXECUTED_AT timestamp
+}
+
+TABLE gold.USER_DIM {
+  USER_ID int
+  CREATED_AT timestamp
+  LAST_UPDATED_AT timestamp
+  LAST_EXECUTED_AT timestamp
+}
+
+TABLE gold.USER_RATING_FACT {
+  CASE_ID string
+  USER_ID int
+  COMMNET string
+  CASE_RATING int
+  CASE_CATEGORY_ID string
+  CREATED_AT timestamp
+  LAST_EXECUTED_AT timestamp
+}
+
+TABLE gold.USER_RATING_5S {
+  RUN_DATE datetime
+  USER_5S int
+  LAST_EXECUTED_AT timestamp
+}
+
+TABLE gold.USER_RATING_7D_28D {
+  DATE datetime
+  USER_7D int
+  USER_28D timestamp
+  LAST_EXECUTED_TIME timestamp
+}
+
+TABLE gold.USER_RATING_10D {
+  RUN_DATE datetime
+  TICKET_10D int
+  LAST_EXECUTED_TIME timestamp
+}
+
+
+TABLE gold.USER_RATING_CATEGORY {
+  DATE datetime
+  PRODUCT int
+  FACILITY int
+  SERVICE int
+  LAST_EXECUTED_TIME timestamp
+}
+
+
+
+
+Ref: "silver"."CALENDAR_DIM"."DATE" < "silver"."USER_RATING_FACT"."CREATED_AT"
+
+Ref: "silver"."CASE_CATEGORY_DIM"."CASE_CATEGORY_ID" < "silver"."USER_RATING_FACT"."CASE_CATEGORY_ID"
+
+Ref: "silver"."USER_DIM"."USER_ID" < "silver"."USER_RATING_FACT"."USER_ID"
+
+Ref: "gold"."CALENDAR_DIM"."DATE" < "gold"."USER_RATING_FACT"."CREATED_AT"
+
+Ref: "gold"."USER_DIM"."USER_ID" < "gold"."USER_RATING_FACT"."CASE_ID"
+
+Ref: "gold"."CASE_CATEGORY_DIM"."CASE_CATEGORY_ID" < "gold"."USER_RATING_FACT"."CASE_CATEGORY_ID"
+
+Ref: "gold"."CALENDAR_DIM"."DATE" < "gold"."USER_RATING_5S"."RUN_DATE"
+
+Ref: "gold"."CALENDAR_DIM"."DATE" < "gold"."USER_RATING_7D_28D"."DATE"
+
+Ref: "gold"."CALENDAR_DIM"."DATE" < "gold"."USER_RATING_10D"."RUN_DATE"
+
+Ref: "gold"."CALENDAR_DIM"."DATE" < "gold"."USER_RATING_CATEGORY"."DATE"
